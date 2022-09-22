@@ -8,7 +8,7 @@ Make sure your local postgres is down and 5432 port is available or change port 
 
 ```docker-compose run app```
 
-```docker-compose run postgres -d```
+```docker-compose run postgres```
 
 Run migrations
 ``npx prisma migrate dev``
