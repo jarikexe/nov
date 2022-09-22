@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/App.dockerfile
+    container_name: app
+    working_dir: /app
+    network_mode: host
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - ./node_modules:/app/node_modules
+    command: |
+      npm run start:dev
+  postgres:
+    image: postgres:13.3
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: "test"
+      POSTGRES_USER: "test"
+      POSTGRES_PASSWORD: "test"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    network_mode: host
